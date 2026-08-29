@@ -1,3 +1,5 @@
+import { SignInButton, SignUpButton, Show, UserButton } from "@clerk/nextjs";
+
 type IconName = "arrow" | "bell" | "chart" | "clock" | "document" | "search" | "star";
 
 const courses = [
@@ -36,7 +38,7 @@ function DecorativeBars() { return <div className="bar-illustration" aria-hidden
 
 export default function Home() {
   return <main className="vertex-page"><div className="vertex-shell">
-    <header className="site-header"><a className="brand" href="#top" aria-label="Vertex home"><VertexMark /><span>Vertex</span></a><nav className="primary-nav" aria-label="Primary navigation"><a href="#courses">Courses</a><a href="#courses">My Learning</a></nav><div className="header-actions"><button className="icon-button" type="button" aria-label="Notifications"><Icon name="bell" /></button><button className="avatar" type="button" aria-label="Open account menu"><span /></button></div></header>
+    <header className="site-header"><a className="brand" href="#top" aria-label="Vertex home"><VertexMark /><span>Vertex</span></a><nav className="primary-nav" aria-label="Primary navigation"><a href="#courses">Courses</a><a href="#courses">My Learning</a></nav><div className="header-actions"><button className="icon-button" type="button" aria-label="Notifications"><Icon name="bell" /></button><Show when="signed-out"><SignInButton><button className="auth-button auth-ghost" type="button">Sign in</button></SignInButton><SignUpButton><button className="auth-button auth-primary" type="button">Sign up</button></SignUpButton></Show><Show when="signed-in"><UserButton /></Show></div></header>
     <section className="hero" id="top" aria-labelledby="hero-title"><p className="hero-label">Intelligent learning</p><h1 id="hero-title">Search your learning<br />in plain English.</h1><p className="hero-copy">Vertex understands what you want to learn and<br className="desktop-break" /> finds the exact lessons across all your courses.</p><a className="hero-cta" href="#courses">Explore Courses <Icon name="arrow" /></a><form className="learning-search" role="search"><Icon name="search" /><label className="sr-only" htmlFor="learning-query">Search your learning</label><input id="learning-query" type="search" placeholder="Ask anything about your learning..." /><kbd>⌘ K</kbd></form></section>
     <section className="courses-section" id="courses" aria-labelledby="courses-title"><div className="section-heading"><h2 id="courses-title">All Courses</h2><a href="#courses">View all courses <Icon name="arrow" /></a></div><div className="course-grid">{courses.map((course) => <CourseCard key={course.name} course={course} />)}</div><div className="new-content"><span /><p><Icon name="star" />New courses and lessons added every week.</p><span /></div><DecorativeBars /></section>
   </div></main>;
